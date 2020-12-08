@@ -6,6 +6,7 @@ import pl.condigitall.demo.repository.UserRepo;
 import pl.condigitall.demo.request.UserRequest;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @Service
 public class LoginService {
@@ -17,14 +18,14 @@ public class LoginService {
     }
 
     public void login(UserRequest userRequest) {
-        Optional<User> user = userRepo.findByEmail(userRequest.getEmail());
-        if(!user.isPresent()) {
-            throw new LoginServiceException("Nieprawidłowy login lub hasło");
+        var e = new LoginServiceException("Nieprawidłowy login lub hasło");
+        User user = userRepo.findByEmail(userRequest.getEmail())
+                .orElseThrow(()->e);
+
+        if(!user.getPassword().equals(userRequest.getPassword())) {
+            throw e;
         }
-        if(!user.get().getPassword().equals(userRequest.getPassword())) {
-            throw new LoginServiceException("Nieprawidłowy login lub hasło");
-        }
-        loginUser = user.get();
+        loginUser = user;
         System.out.println(loginUser);
     }
 }
