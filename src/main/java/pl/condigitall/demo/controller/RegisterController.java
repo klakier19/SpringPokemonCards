@@ -17,19 +17,18 @@ public class RegisterController {
     }
 
     @GetMapping("/register")
-    public String showRegisterForm() {
+    public String showRegisterForm(Model model) {
+        UserRequest userRequest = new UserRequest();
+        model.addAttribute("user", userRequest);
         return "register";
     }
 
 
     @PostMapping("/register")
-    public String createUser(String email, String password, Model model) {
-        UserRequest userRequest = UserRequest.builder()
-                .email(email)
-                .password(password)
-                .build();
+    public String createUser(UserRequest user, Model model) {
+        System.out.println(user);
         try {
-            registerService.register(userRequest);
+           registerService.register(user);
         } catch (RegisterServiceException e) {
             model.addAttribute("errorMassage",  e.getMessage());
             return "error";

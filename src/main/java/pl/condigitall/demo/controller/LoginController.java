@@ -18,18 +18,16 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String showLoginForm(Model model) {
+        model.addAttribute("user", new UserRequest());
         return "login";
     }
 
     @PostMapping("/login")
-    public String loginUser(String email, String password, Model model) {
-        UserRequest userRequest = UserRequest.builder()
-                .email(email)
-                .password(password)
-                .build();
+    public String loginUser(UserRequest user, Model model) {
+
         try {
-            loginService.login(userRequest);
+            loginService.login(user);
         } catch (LoginServiceException e) {
             model.addAttribute("errorMassage",  e.getMessage());
             return "error";

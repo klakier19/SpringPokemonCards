@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
 <body>
 <h1>Register Site</h1>
-<form method="post" action="/register" >
-    <input type="email" name="email">
-    <input type="password" name="password">
+<form method="post" action="/register" th:object="${user}">
+    <input type="email" th:field="*{email}">
+    <input type="password" th:field="*{password}">
     <input type="submit">
 </form>
 </body>
