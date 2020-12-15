@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Booster</title>
+</head>
+<body>
+    <h1>Booster page</h1>
+    <form action="/booster" method="post">
+        <button type="submit">Kup kartę</button>
+    </form>
+    <div th:if="${booster!=null}">
+        <div th:each="card:${booster}">
+            <label th:text="${card.name}"></label>
+        </div>
+
+    </div>
+</body>
+</html>
