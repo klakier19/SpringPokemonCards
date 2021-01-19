@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Booster</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" >
 </head>
 <body>
     <h1>Booster page</h1>
     <form action="/booster" method="post">
-        <button type="submit">Kup kartę</button>
+        <button type="submit" th:disabled="${data.trainerCash < data.boosterCost}">Kup karty za [[${data.boosterCost}]]</button>
     </form>
-    <div th:if="${booster!=null}">
-        <div th:each="card:${booster}">
-            <label th:text="${card.name}"></label>
+    <div th:if="${error!=null}">
+        <p th:text="${error}"></p>
+    </div>
+    <div  th:if="${booster!=null}">
+        <div class="card" th:each="card:${booster}">
+            <p th:text="${card.name}"></p>
+            <img th:src="${card.imageUrl}" />
         </div>
 
     </div>

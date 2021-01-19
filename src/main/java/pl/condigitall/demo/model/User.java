@@ -11,6 +11,8 @@ public class User {
     private int id;
     private String email;
     private String password;
+    @OneToOne
+    private Trainer trainer = new Trainer();
 
     public User(String email, String password) {
         this.email = email;
@@ -23,6 +25,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public Trainer getTrainer() {
+        return trainer;
     }
 
     @Override

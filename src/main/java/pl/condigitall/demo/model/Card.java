@@ -14,9 +14,9 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Card {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
     private String name;
+    private String imageUrl;
 
     public Card(String name) {
         this.name = name;

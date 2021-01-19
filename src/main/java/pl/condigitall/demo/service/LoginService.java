@@ -1,6 +1,7 @@
 package pl.condigitall.demo.service;
 
 import org.springframework.stereotype.Service;
+import pl.condigitall.demo.model.Trainer;
 import pl.condigitall.demo.model.User;
 import pl.condigitall.demo.repository.UserRepo;
 import pl.condigitall.demo.request.UserRequest;
@@ -27,5 +28,9 @@ public class LoginService {
         }
         loginUser = user;
         System.out.println(loginUser);
+    }
+
+    public User getLoginUser() {
+        return loginUser;
     }
 }

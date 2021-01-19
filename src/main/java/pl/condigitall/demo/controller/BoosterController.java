@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.condigitall.demo.service.BoosterService;
 
 @Controller
@@ -15,15 +16,20 @@ public class BoosterController {
     }
 
     @GetMapping("/booster")
-    public String showBoosterPage() {
+    public String showBoosterPage(Model model) {
+        model.addAttribute("data", boosterService.getViewData());
         return "booster";
     }
 
     @PostMapping("/booster")
-    public void openBooster(Model model) {
+    public String openBooster(RedirectAttributes red) {
         System.out.println("booster open");
-        model.addAttribute("booster",boosterService.cardGenerator());
+
+       try {
+           red.addFlashAttribute("booster", boosterService.openBooster());
+       } catch ( Exception e){
+           red.addFlashAttribute("error", e.getMessage());
+       }
+       return "redirect:/booster";
     }
-
-
 }

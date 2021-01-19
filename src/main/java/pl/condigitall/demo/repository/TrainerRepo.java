@@ -2,8 +2,9 @@ package pl.condigitall.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.condigitall.demo.model.Card;
+import pl.condigitall.demo.model.Trainer;
 
 @Repository
-public interface CardRepo extends JpaRepository<Card, String> {
+public interface TrainerRepo extends JpaRepository<Trainer, Long> {
+
 }
