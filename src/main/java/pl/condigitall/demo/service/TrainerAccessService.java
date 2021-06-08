@@ -1,5 +1,6 @@
 package pl.condigitall.demo.service;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.condigitall.demo.model.Trainer;
 import pl.condigitall.demo.repository.TrainerRepo;
@@ -15,7 +16,9 @@ public class TrainerAccessService {
     }
 
     public Trainer getTrainer() {
-        return loginService.getLoginUser().getTrainer();
+        return loginService.getLoggedUser().get().getTrainer();
+
+        //todo upewnic sie ze konsola dalej dziala
     }
 
     public void saveTrainer(Trainer trainer) {

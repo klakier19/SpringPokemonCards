@@ -26,11 +26,12 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String createUser(UserRequest user, Model model) {
-        System.out.println(user);
+        System.out.println("Registwer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         try {
            registerService.register(user);
         } catch (RegisterServiceException e) {
             model.addAttribute("errorMassage",  e.getMessage());
+            System.out.println("errror !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             return "error";
         }
         return "index";

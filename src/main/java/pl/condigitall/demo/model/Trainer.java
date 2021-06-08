@@ -1,9 +1,12 @@
 package pl.condigitall.demo.model;
 
+import pl.condigitall.demo.service.AuctionServiceException;
+
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Entity
 @Table(name = "trainers")
@@ -37,7 +40,49 @@ public class Trainer {
         addCards(booster.getCardList());
     }
 
+    public Map<Card, Integer> getCards() {
+        return cards;
+    }
+
+    public int getCount(Card card) {
+        return cards.get(card);
+    }
+
     public long getCash() {
         return cash;
+    }
+
+    public void decreaseCash (long decreaseAmount) {
+      if(cash < decreaseAmount) {
+          throw new IllegalArgumentException("Trener nie ma pieniędzy");
+      }
+        cash = cash - decreaseAmount;
+    }
+
+    public void increaseCash (long increaseAmount) {
+        if(increaseAmount < 0) {
+            throw new IllegalArgumentException("Kwota nie może być ujemna");
+        }
+        cash = cash + increaseAmount;
+    }
+
+    public void delCard(Card card, int cardAmount) {
+        cards.put(card, cards.get(card)-cardAmount);
+        if(cards.get(card) <= 0) {
+            cards.remove(card);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trainer trainer = (Trainer) o;
+        return id == trainer.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

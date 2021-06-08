@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Register Site</h1>
-<form method="post" action="/register" th:object="${user}">
+<form method="post" th:object="${user}">
     <input type="email" th:field="*{email}">
     <input type="password" th:field="*{password}">
     <input type="submit">

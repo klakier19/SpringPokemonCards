@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy</title>
+</head>
+<body>
+<h1>Kup karty</h1>
+<a href="/">Home</a><br />
+<div class="auctions" th:each="auction:${auctions}">
+    <img th:src="${auction.cardURL}" />
+    <form th:action="'/buy/'+${auction.auctionID}"  method="post" th:object="${request}">
+        <div th:text="'Cena '+${auction.cardPrice}"></div>
+        <div th:text="'Ilość '+${auction.cardAmount}"></div>
+
+        <label>Ilość</label>
+        <input type="number" th:max="${auction.cardAmount}" min="1" placeholder="ile kart ?" th:field="*{cardAmount}" />
+        <br/>
+        <span th:if="${auction.auctionID} == *{auctionID}">
+            <span th:if="${#fields.hasErrors('cardAmount')}" th:errors="*{cardAmount}">
+            </span>
+        </span>
+        <button type="submit">buy</button>
+    </form>
+</div>
+</body>
+</html>

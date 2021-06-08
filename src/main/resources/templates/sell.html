@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sell Page</title>
+</head>
+<body>
+<a href="/">Home</a><br />
+<div class="card" th:each="card:${cards.keySet()}">
+    <p th:text="${card.name}"></p>
+    <img th:src="${card.imageUrl}" />
+    <form th:action="'/sell/'+${card.id}"  method="post" th:object="${request}">
+        <label>Cena</label>
+        <input type="number" min="-1" placeholder="cena za karte" th:field="*{cardPrice}"/>
+        <span th:if="${card.id} == *{cardID}">
+            <span th:if="${#fields.hasErrors('cardPrice')}" th:errors="*{cardPrice}">
+        </span>
+</span>
+
+        <label>Ilość</label>
+        <input type="number" th:max="${cards.get(card)}" min="1" placeholder="ile kart ?" th:field="*{cardAmount}" />
+        <br/>
+        <span th:if="${card.id} == *{cardID}">
+            <span th:if="${#fields.hasErrors('cardAmount')}" th:errors="*{cardAmount}">
+            </span>
+        </span>
+        <button type="submit">sell</button>
+    </form>
+</div>
+</body>
+</html>
